@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Contact
+ * 
+ * @author Slava Yurthev
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<sy_developer>
+			<contacts>
+				<skype>darks_v1rus</skype>
+				<telegram>darks_virus</telegram>
+				<github>SlavaYurthev</github>
+				<marketplace>Slava Yurthev</marketplace>
+			</contacts>
+		</sy_developer>
+		<sy_contact>
+			<general>
+				<active>1</active>
+				<fields>a:2:{s:18:"_1506991973917_917";a:4:{s:3:"key";s:5:"email";s:5:"label";s:6:"E-Mail";s:11:"field_class";s:23:"required validate-email";s:10:"field_type";s:5:"email";}s:18:"_1506991977533_533";a:4:{s:3:"key";s:7:"message";s:5:"label";s:7:"Message";s:11:"field_class";s:8:"required";s:10:"field_type";s:8:"textarea";}}</fields>
+			</general>
+		</sy_contact>
+	</default>
+</config>

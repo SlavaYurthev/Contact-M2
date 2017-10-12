@@ -1,0 +1,26 @@
+{
+    "name": "sy/contact",
+    "description": "N/A",
+    "license": [
+        "OSL-3.0"
+    ],
+    "require": {
+        "php": "~5.6.0|7.0.2|7.0.4|~7.0.6|~7.1.0"
+    },
+    "type": "magento2-module",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Slava Yurthev",
+            "email": "slavik-iii@ukr.net",
+            "homepage": "https://github.com/SlavaYurthev/",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "SY\\Contact\\": ""
+        }
+    }
+}

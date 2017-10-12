@@ -1,0 +1,39 @@
+<?php
+/**
+ * Contact
+ * 
+ * @author Slava Yurthev
+ */
+?>
+<?php $fields = $this->getFields(); ?>
+<?php if(count($fields)>0): ?>
+	<form class="form contact" action="<?php echo $this->getUrl('customcontact/form/post'); ?>" id="contact-form" method="post" data-mage-init='{"validation":{}}'>
+		<input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
+		<fieldset class="fieldset">
+			<legend class="legend"><span><?php echo __('Write Us'); ?></span></legend>
+			<div class="field note no-label">
+				<?php echo __('Jot us a note and we’ll get back to you as quickly as possible.'); ?>
+			</div>
+			<?php foreach($fields as $field): ?>
+				<div class="field <?php echo $field->getData('key'); ?> <?php echo $field->getData('field_class'); ?>">
+					<label class="label" for="<?php echo $field->getData('key'); ?>"><span><?php echo $field->getData('label'); ?></span></label>
+					<div class="control">
+						<?php if(in_array($field->getData('field_type'), ['text','email'])): ?>
+							<input name="<?php echo $field->getData('key'); ?>" id="<?php echo $field->getData('key'); ?>" title="<?php echo $field->getData('label'); ?>" value="" class="<?php echo $field->getData('field_class'); ?>" type="<?php echo $field->getData('field_type'); ?>">
+						<?php elseif($field->getData('field_type') == 'textarea'): ?>
+							<textarea name="<?php echo $field->getData('key'); ?>" id="<?php echo $field->getData('key'); ?>" title="<?php echo $field->getData('label'); ?>" value="" class="<?php echo $field->getData('field_class'); ?>" style="resize:none"></textarea>
+						<?php endif; ?>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</fieldset>
+		<div class="actions-toolbar">
+			<div class="primary">
+				<input type="hidden" name="hideit" id="hideit" value="">
+				<button type="submit" title="<?php echo __('Submit'); ?>" class="action submit primary">
+					<span><?php echo __('Submit'); ?></span>
+				</button>
+			</div>
+		</div>
+	</form>
+<?php endif; ?>

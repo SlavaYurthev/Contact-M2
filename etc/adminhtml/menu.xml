@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Contact
+ * 
+ * @author Slava Yurthev
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<update id="SY::core"
+			 title="Slava Yurthev"
+			 module="SY_BugReporter"
+			 sortOrder="9999"
+			 resource="Magento_Backend::content" />
+		<update id="SY::developer"
+			 title="Developer"
+			 module="SY_BugReporter" 
+			 sortOrder="1000"
+			 parent="SY::core"
+			 resource="Magento_Backend::content" />
+		<update id="SY::developer_developer"
+			 title="Developer"
+			 module="SY_BugReporter" 
+			 sortOrder="1000"
+			 parent="SY::developer"
+			 action="adminhtml/system_config/edit/section/sy_developer/"
+			 resource="Magento_Backend::content" />
+		<add id="SY_Contact::section"
+			 title="Contact"
+			 module="SY_Contact" 
+			 sortOrder="0"
+			 parent="SY::core"
+			 resource="SY_Contact::section" />
+		<add id="SY_Contact::requests"
+			 title="Requests"
+			 module="SY_Contact" 
+			 sortOrder="0"
+			 parent="SY_Contact::section"
+			 action="sy_contact/requests"
+			 resource="SY_Contact::requests" />
+		<add id="SY_Contact::configuration"
+			 title="Configuration"
+			 module="SY_Contact" 
+			 sortOrder="1"
+			 parent="SY_Contact::section"
+			 action="adminhtml/system_config/edit/section/sy_contact/"
+			 resource="SY_Contact::configuration" />
+	</menu>
+</config>
