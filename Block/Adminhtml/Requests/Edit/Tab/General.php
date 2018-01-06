@@ -12,17 +12,20 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\Data\FormFactory;
 use Magento\Cms\Model\Wysiwyg\Config;
+use Magento\Framework\Serialize\Serializer\Json;
  
 class General extends Generic implements TabInterface {
 	protected $_wysiwygConfig;
-	protected $_newsStatus;
+	protected $_json;
 	public function __construct(
 		Context $context,
 		Registry $registry,
 		FormFactory $formFactory,
 		Config $wysiwygConfig,
+		Json $json,
 		array $data = []
 	) {
+		$this->_json = $json;
 		$this->_wysiwygConfig = $wysiwygConfig;
 		parent::__construct($context, $registry, $formFactory, $data);
 	}
@@ -43,7 +46,7 @@ class General extends Generic implements TabInterface {
 			);
 		}
 		$info = $model->getData('info');
-		$info = unserialize($info);
+		$info = $this->_json->unserialize($info);
 		if(count($info)>0){
 			foreach ($info as $field) {
 				try {

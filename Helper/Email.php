@@ -13,11 +13,19 @@ use \Magento\Store\Model\ScopeInterface;
 
 class Email extends \SY\Contact\Helper\Data {
 	const EMAIL_TYPE = 'email';
+	protected $_json;
+	public function __construct(
+		\Magento\Framework\App\Helper\Context $context,
+		\Magento\Framework\Serialize\Serializer\Json $json
+	){
+		$this->_json = $json;
+		parent::__construct($context);
+	}
 	public function recive(\SY\Contact\Model\Request $request, $storeId = 0){
 		$to = $this->getConfig('general/send_to');
 		if((bool)$to !== false){
 			$info = $request->getData('info');
-			$info = unserialize($info);
+			$info = $this->_json->unserialize($info);
 			if(is_array($info) && count($info)>0){
 				foreach ($info as $field) {
 					if(@$field['type'] == self::EMAIL_TYPE){

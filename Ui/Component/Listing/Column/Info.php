@@ -9,6 +9,7 @@ namespace SY\Contact\Ui\Component\Listing\Column;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\Serialize\Serializer\Json;
 
 class Info extends \Magento\Ui\Component\Listing\Columns\Column
 {
@@ -17,9 +18,11 @@ class Info extends \Magento\Ui\Component\Listing\Columns\Column
 		ContextInterface $context,
 		UiComponentFactory $uiComponentFactory,
 		StoreManagerInterface $storeManager,
+		Json $json,
 		array $components = [],
 		array $data = []
 	) {
+		$this->json = $json;
 		$this->storeManager = $storeManager;
 		parent::__construct($context, $uiComponentFactory, $components, $data);
 	}
@@ -29,7 +32,7 @@ class Info extends \Magento\Ui\Component\Listing\Columns\Column
 				if($item) {
 					if(isset($item['info']) && (bool)$item['info'] !== false){
 						$info = $item['info'];
-						$info = unserialize($info);
+						$info = $this->json->unserialize($info);
 						$html = '';
 						if(count($info)>0){
 							foreach ($info as $field) {

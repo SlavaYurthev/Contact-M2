@@ -14,9 +14,10 @@ class Post extends Action {
 		$validator = $this->_objectManager->get('Magento\Framework\Data\Form\FormKey\Validator');
 		if ($validator->validate($this->getRequest())) {
 			$helper = $this->_objectManager->get('SY\Contact\Helper\Data');
+			$json = $this->_objectManager->get('Magento\Framework\Serialize\Serializer\Json');
 			$store = $this->_objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
 			$fields = $helper->getConfig('general/fields', $store->getId());
-			$fields = unserialize($fields);
+			$fields = $json->unserialize($fields);
 			$info = [];
 			if(count($fields)>0){
 				foreach ($fields as $field) {
@@ -34,7 +35,7 @@ class Post extends Action {
 			}
 			if(count($info)>0){
 				$model = $this->_objectManager->get('SY\Contact\Model\Request');
-				$model->setData('info', serialize($info));
+				$model->setData('info', $json->serialize($info));
 				try {
 					$model->save();
 					if($model->getId()){

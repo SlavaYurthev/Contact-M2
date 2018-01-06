@@ -12,11 +12,12 @@ class ContactForm extends \Magento\Contact\Block\ContactForm {
 		if(!$this->_fields){
 			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$helper = $objectManager->get('SY\Contact\Helper\Data');
+			$json = $objectManager->get('Magento\Framework\Serialize\Serializer\Json');
 			$fields = $helper->getConfig(
 				'general/fields', 
 				$this->_storeManager->getStore()->getId()
 			);
-			$fields = unserialize($fields);
+			$fields = $json->unserialize($fields);
 			if(count($fields)>0){
 				foreach ($fields as $key => $field) {
 					$object = new \Magento\Framework\DataObject;

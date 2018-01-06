@@ -19,7 +19,7 @@
 		<sy_contact>
 			<general>
 				<active>1</active>
-				<fields>a:2:{s:18:"_1506991973917_917";a:4:{s:3:"key";s:5:"email";s:5:"label";s:6:"E-Mail";s:11:"field_class";s:23:"required validate-email";s:10:"field_type";s:5:"email";}s:18:"_1506991977533_533";a:4:{s:3:"key";s:7:"message";s:5:"label";s:7:"Message";s:11:"field_class";s:8:"required";s:10:"field_type";s:8:"textarea";}}</fields>
+				<fields>[{"key":"email","label":"E-Mail","field_class":"required validate-email","field_type":"email"},{"key":"message","label":"Message","field_class":"required","field_type":"textarea"}]</fields>
 			</general>
 		</sy_contact>
 	</default>

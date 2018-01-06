@@ -12,9 +12,12 @@ use Magento\Framework\Setup\ModuleContextInterface;
 
 class InstallData implements InstallDataInterface {
 	protected $_resourceConfig;
+	protected $_json;
 	public function __construct(
-		\Magento\Config\Model\ResourceModel\Config $resourceConfig
+		\Magento\Config\Model\ResourceModel\Config $resourceConfig,
+		\Magento\Framework\Serialize\Serializer\Json $json
 	){
+		$this->_json = $json;
 		$this->_resourceConfig = $resourceConfig;
 	}
 	public function install(
@@ -23,13 +26,13 @@ class InstallData implements InstallDataInterface {
 	) {
 		$default = [
 			'fields' => [
-				'_1506991973917_917' => [
+				[
 					'key' => 'email',
 					'label' => 'E-Mail',
 					'field_class' => 'required validate-email',
 					'field_type' => 'email'
 				],
-				'_1506991977533_533' => [
+				[
 					'key' => 'message',
 					'label' => 'Message',
 					'field_class' => 'required',
@@ -39,7 +42,7 @@ class InstallData implements InstallDataInterface {
 		];
 		$this->_resourceConfig->saveConfig(
 			'sy_contact/general/fields',
-			serialize($default['fields']),
+			$this->_json->serialize($default['fields']),
 			'default',
 			0
 		);
