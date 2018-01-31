@@ -40,7 +40,7 @@ class Post extends Action {
 					$model->save();
 					if($model->getId()){
 						$email = $this->_objectManager->get('SY\Contact\Helper\Email');
-						$email->recive($model);
+						$email->recive($model, $store->getId());
 						$messageManager = $this->_objectManager->get('Magento\Framework\Message\ManagerInterface');
 						$messageManager->addSuccess(__('Thanks for contacting us with your comments and questions. We\'ll respond to you very soon.'));
 					}

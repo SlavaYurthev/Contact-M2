@@ -7,9 +7,8 @@
 namespace SY\Contact\Helper;
 
 use \Magento\Store\Model\StoreManagerInterface;
-use \Magento\Framework\ObjectManagerInterface;
 use \Magento\Framework\App\Helper\Context;
-use \Magento\Store\Model\ScopeInterface;
+use \Magento\Framework\App\ObjectManager;
 
 class Email extends \SY\Contact\Helper\Data {
 	const EMAIL_TYPE = 'email';
@@ -45,10 +44,13 @@ class Email extends \SY\Contact\Helper\Data {
 		return $vars;
 	}
 	public function send($from, $to, $vars, $storeId = 0){
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-		$transport = $objectManager->get('Magento\Framework\Mail\Template\TransportBuilder');
+		$translator = ObjectManager::getInstance()->get('Magento\Framework\Translate\Inline\StateInterface');
+		$transport = ObjectManager::getInstance()->get('Magento\Framework\Mail\Template\TransportBuilder');
 		try {
-			$transport->setTemplateIdentifier('custom_contact_email_template');
+			$translator->suspend();
+			$transport->setTemplateIdentifier(
+				$this->getConfig('general/email_template', $storeId)
+			);
 			$transport->setTemplateOptions([
 					'area' => \Magento\Framework\App\Area::AREA_FRONTEND, 
 					'store' => $storeId
@@ -57,6 +59,7 @@ class Email extends \SY\Contact\Helper\Data {
 			$transport->setFrom(['name'=>__('Customer'), 'email' => $from]);
 			$transport->setTemplateVars($vars);
 			$transport->getTransport()->sendMessage();
+			$translator->resume();
 		} catch (\Exception $e) {}
 	}
 }

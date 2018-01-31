@@ -7,8 +7,10 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
-	<template id="custom_contact_email_template"
+	<template id="sy_contact_general_email_template"
 			  label="Custom Contact Email Template"
-			  file="custom_contact_email_template.html" type="html"
-			  module="SY_Contact" area="frontend" />
+			  file="sy_contact_general_email_template.html" 
+			  type="html"
+			  module="SY_Contact" 
+			  area="frontend" />
 </config>

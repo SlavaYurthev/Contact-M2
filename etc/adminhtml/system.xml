@@ -56,7 +56,11 @@
 					<frontend_model>SY\Contact\Block\Adminhtml\System\Config\Form\Field\Fields</frontend_model>
 					<backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
 				</field>
-				<field id="send_to" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+				<field id="email_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+				</field>
+				<field id="send_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Send To</label>
 					<comment>Manager Email to Recive New Requests</comment>
 				</field>
