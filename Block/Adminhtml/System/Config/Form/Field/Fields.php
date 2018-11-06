@@ -43,6 +43,10 @@ class Fields extends \Magento\Config\Block\System\Config\Form\Field\FieldArray\A
 				'label' => __('Default Value*'),
 				'style'=>'min-width:100px'
 			]);
+		$this->addColumn('options', [
+				'label' => __('Options'),
+				'style'=>'min-width:100px'
+			]);
         $this->addColumn('show_if', [
                 'label' => __('Show If**'),
                 'style'=>'min-width:100px'

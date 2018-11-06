@@ -45,21 +45,25 @@
                             </label>
                         <?php elseif ($field->getData('field_type') == 'select'): ?>
                             <select name="<?php echo $field->getData('key'); ?>" id="<?php echo $field->getData('key'); ?>">
-                                <?php foreach(explode('|', $field->getData('default_value')) as $value): ?>
-                                    <option value="<?php echo $block->escapeHtml($value); ?>">
+                                <?php foreach(explode('|', $field->getData('options')) as $value): ?>
+                                    <option value="<?php echo $block->escapeHtml($value); ?>"
+                                        <?php if ($field->getData('default_value') == $value) echo " selected" ?>
+                                    >
                                         <?php echo $block->escapeHtml($value); ?>
                                     </option>
                                 <?php endforeach ?>
                             </select>
                         <?php elseif ($field->getData('field_type') == 'checkbox_list'): ?>
-                            <?php foreach(explode('|', $field->getData('default_value')) as $value): ?>
+                            <?php foreach(explode('|', $field->getData('options')) as $value): ?>
                                 <p>
                                     <input type="checkbox" name="<?php echo $field->getData('key'); ?>[]"
                                            id="<?php echo $field->getData('key'); ?>"
                                            title="<?php echo $field->getData('label'); ?>"
                                            value="<?php echo $block->escapeHtml($value); ?>"
                                            class="<?php echo $field->getData('field_class'); ?>"
-                                           type="<?php echo $field->getData('field_type'); ?>">
+                                           type="<?php echo $field->getData('field_type'); ?>"
+                                            <?php if ($field->getData('default_value') == $value) echo " selected" ?>
+                                    >
                                     <label for="<?php echo $field->getData('key'); ?>">
                                         <?php echo $block->escapeHtml($value); ?>
                                     </label>
