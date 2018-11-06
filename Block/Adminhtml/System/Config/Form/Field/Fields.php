@@ -17,9 +17,12 @@ class Fields extends \Magento\Config\Block\System\Config\Form\Field\FieldArray\A
 			);
 		}
 		return $this->_typeRenderer
-			->addOption('text', 'text')
-			->addOption('textarea', 'textarea')
-			->addOption('email', 'email');
+			->addOption('text', 'Single Line Text')
+			->addOption('textarea', 'Multi Line Text')
+			->addOption('email', 'E-Mail')
+			->addOption('checkbox', 'Checkbox')
+			->addOption('checkbox_list', 'Checkbox List')
+			->addOption('select', 'Drop Down');
 	}
 	protected function _prepareToRender(){
 		$this->addColumn('key', [

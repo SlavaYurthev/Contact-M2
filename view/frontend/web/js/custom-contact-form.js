@@ -23,7 +23,15 @@ define([
                     // in the future this might be backwards compatibly extended with expressions like
                     // fieldsname=="value" and so on
 
-                    if ($form.find('[name="' + condition + '"]').val()) {
+                    var dependencyField = $form.find('[name="' + condition + '"]');
+
+                    if (dependencyField.attr('type') == 'checkbox') {
+                        var conditionSatisfied = dependencyField.is(':checked');
+                    } else {
+                        var conditionSatisfied = dependencyField.val() != '';
+                    }
+
+                    if (conditionSatisfied) {
                         $(this).parents('.field').show();
                     } else {
                         $(this).parents('.field').hide();

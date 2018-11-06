@@ -33,6 +33,38 @@
                                       title="<?php echo $field->getData('label'); ?>"
                                       class="<?php echo $field->getData('field_class'); ?>"
                                       style="resize:none"><?php echo $block->escapeHtml($field->getData('default_value')); ?></textarea>
+                        <?php elseif ($field->getData('field_type') == 'checkbox'): ?>
+                            <input type="checkbox" name="<?php echo $field->getData('key'); ?>"
+                                   id="<?php echo $field->getData('key'); ?>"
+                                   title="<?php echo $field->getData('label'); ?>"
+                                   value="<?php echo $block->escapeHtml($field->getData('default_value')); ?>"
+                                   class="<?php echo $field->getData('field_class'); ?>"
+                                   type="<?php echo $field->getData('field_type'); ?>">
+                            <label for="<?php echo $field->getData('key'); ?>">
+                                <?php echo $block->escapeHtml($field->getData('default_value')); ?>
+                            </label>
+                        <?php elseif ($field->getData('field_type') == 'select'): ?>
+                            <select name="<?php echo $field->getData('key'); ?>" id="<?php echo $field->getData('key'); ?>">
+                                <?php foreach(explode('|', $field->getData('default_value')) as $value): ?>
+                                    <option value="<?php echo $block->escapeHtml($value); ?>">
+                                        <?php echo $block->escapeHtml($value); ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        <?php elseif ($field->getData('field_type') == 'checkbox_list'): ?>
+                            <?php foreach(explode('|', $field->getData('default_value')) as $value): ?>
+                                <p>
+                                    <input type="checkbox" name="<?php echo $field->getData('key'); ?>[]"
+                                           id="<?php echo $field->getData('key'); ?>"
+                                           title="<?php echo $field->getData('label'); ?>"
+                                           value="<?php echo $block->escapeHtml($value); ?>"
+                                           class="<?php echo $field->getData('field_class'); ?>"
+                                           type="<?php echo $field->getData('field_type'); ?>">
+                                    <label for="<?php echo $field->getData('key'); ?>">
+                                        <?php echo $block->escapeHtml($value); ?>
+                                    </label>
+                                </p>
+                            <?php endforeach ?>
                         <?php endif; ?>
                     </div>
                 </div>
