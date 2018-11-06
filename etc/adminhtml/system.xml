@@ -55,6 +55,9 @@
 					<label>Fields</label>
 					<frontend_model>SY\Contact\Block\Adminhtml\System\Config\Form\Field\Fields</frontend_model>
 					<backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+					<comment><![CDATA[
+					* You can use directives in for the Default Value such as {{customer.firstname}} {{customerDefaultBilling.city}}
+					]]></comment>
 				</field>
 				<field id="email_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Email Template</label>

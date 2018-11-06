@@ -36,6 +36,10 @@ class Fields extends \Magento\Config\Block\System\Config\Form\Field\FieldArray\A
 				'label' => __('Field Class'), 
 				'style'=>'min-width:100px'
 			]);
+		$this->addColumn('default_value', [
+				'label' => __('Default Value*'),
+				'style'=>'min-width:100px'
+			]);
 		$this->addColumn('field_type', [
 				'label' => __('Type'), 
 				'style'=>'min-width:100px',
