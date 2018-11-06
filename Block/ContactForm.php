@@ -76,4 +76,25 @@ class ContactForm extends \Magento\Contact\Block\ContactForm {
 	    $result = $filter->filter($value);
 	    return $result;
     }
+
+    protected function getCustomContactFormData()
+    {
+        $fields = $this->getFields();
+        $result = [];
+        foreach($fields as $field) {
+            $result[$field->getKey()] = [
+                'show_if' => $field->getShowIf()
+            ];
+
+        }
+
+        return $result;
+    }
+
+    public function getJsFormConfig()
+    {
+        return json_encode([
+            "validation" => new \stdClass(), "customContactForm" => $this->getCustomContactFormData()
+        ]);
+    }
 }

@@ -8,7 +8,7 @@
 <?php $fields = $this->getFields(); ?>
 <?php if (count($fields) > 0): ?>
     <form class="form contact" action="<?php echo $this->getUrl('customcontact/form/post'); ?>" id="contact-form"
-          method="post" data-mage-init='{"validation":{}}'>
+          method="post" data-mage-init='<?php echo $this->getJsFormConfig() ?>'>
         <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
         <fieldset class="fieldset">
             <legend class="legend"><span><?php echo __('Write Us'); ?></span></legend>

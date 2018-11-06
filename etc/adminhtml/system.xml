@@ -56,7 +56,8 @@
 					<frontend_model>SY\Contact\Block\Adminhtml\System\Config\Form\Field\Fields</frontend_model>
 					<backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
 					<comment><![CDATA[
-					* You can use directives in for the Default Value such as {{customer.firstname}} {{customerDefaultBilling.city}}
+					* You can use directives in for the Default Value such as {{customer.firstname}} {{customerDefaultBilling.city}}<br>
+					** Enter a field name to show the current field only, if another one is filled.
 					]]></comment>
 				</field>
 				<field id="email_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
