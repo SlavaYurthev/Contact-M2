@@ -20,7 +20,7 @@
 			<general>
 				<active>0</active>
 				<email_template>sy_contact_general_email_template</email_template>
-				<fields>[{"key":"email","label":"E-Mail","field_class":"required validate-email","default_value":"","field_type":"email"},{"key":"message","label":"Message","field_class":"required","default_value":"","field_type":"textarea"}]</fields>
+				<fields>[{"key":"email","label":"E-Mail","field_class":"required validate-email","default_value":"","options":"","show_if":"","field_type":"email"},{"key":"message","label":"Message","field_class":"required","default_value":"","options":"","show_if":"","field_type":"textarea"}]</fields>
 			</general>
 		</sy_contact>
 	</default>
