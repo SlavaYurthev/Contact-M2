@@ -13,6 +13,13 @@ use \Magento\Framework\App\ObjectManager;
 class Email extends \SY\Contact\Helper\Data {
 	const EMAIL_TYPE = 'email';
 	protected $_json;
+
+    /**
+     * Used to access request from plugins
+     * @var \SY\Contact\Model\Request
+     */
+	public $request;
+
 	public function __construct(
 		\Magento\Framework\App\Helper\Context $context,
 		\Magento\Framework\Serialize\Serializer\Json $json
@@ -21,9 +28,10 @@ class Email extends \SY\Contact\Helper\Data {
 		parent::__construct($context);
 	}
 	public function recive(\SY\Contact\Model\Request $request, $storeId = 0){
+	    $this->request = $request;
 		$to = $this->getConfig('general/send_to');
 		if((bool)$to !== false){
-			$info = $request->getData('info');
+			$info = $this->request->getData('info');
 			$info = $this->_json->unserialize($info);
 			if(is_array($info) && count($info)>0){
 				foreach ($info as $field) {
