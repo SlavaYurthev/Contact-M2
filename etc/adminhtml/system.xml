@@ -37,7 +37,7 @@
 				</field>
 				<field id="send_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Send To</label>
-					<comment>Manager Email to Recive New Requests</comment>
+					<comment>Manager Email to Receive New Requests</comment>
 				</field>
 			</group>
 		</section>
