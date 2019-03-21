@@ -5,11 +5,11 @@
  * @author Slava Yurthev
  */
 ?>
-<?php $fields = $this->getFields(); ?>
+<?php $fields = $block->getFields(); ?>
 <?php if (count($fields) > 0): ?>
-    <form class="form contact" action="<?php echo $this->getUrl('customcontact/form/post'); ?>" id="contact-form"
-          method="post" data-mage-init='<?php echo $this->getJsFormConfig() ?>'>
-        <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>">
+    <form class="form contact" action="<?php echo $block->getUrl('customcontact/form/post'); ?>" id="contact-form"
+          method="post" data-mage-init='<?php echo $block->getJsFormConfig() ?>'>
+        <input type="hidden" name="form_key" value="<?php echo $block->getFormKey(); ?>">
         <fieldset class="fieldset">
             <legend class="legend"><span><?php echo __('Write Us'); ?></span></legend>
             <div class="field note no-label">
