@@ -11,13 +11,20 @@ use Magento\Backend\App\Action;
 class Edit extends \Magento\Backend\App\Action{
 	protected $_coreRegistry = null;
 	protected $resultPageFactory;
+	protected $session;
+	protected $request;
+	
 	public function __construct(
-		Action\Context $context,
+		\Magento\Backend\App\Action\Context $context,
 		\Magento\Framework\View\Result\PageFactory $resultPageFactory,
-		\Magento\Framework\Registry $registry
+		\Magento\Framework\Registry $registry,
+		\Magento\Backend\Model\Session $session,
+		\SY\Contact\Model\Request $request
 	) {
 		$this->resultPageFactory = $resultPageFactory;
 		$this->_coreRegistry = $registry;
+		$this->session = $session;
+		$this->request = $request;
 		parent::__construct($context);
 	}
 	protected function _isAllowed(){
@@ -32,7 +39,7 @@ class Edit extends \Magento\Backend\App\Action{
 	}
 	public function execute(){
 		$id = $this->getRequest()->getParam('id');
-		$model = $this->_objectManager->create('SY\Contact\Model\Request');
+		$model = $this->request;
 		if ($id) {
 			$model->load($id);
 			if (!$model->getId()) {
@@ -40,7 +47,7 @@ class Edit extends \Magento\Backend\App\Action{
 				return $resultRedirect->setPath('*/*/');
 			}
 		}
-		$data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
+		$data = $this->session->getFormData(true);
 		if (!empty($data)) {
 			$model->setData($data);
 		}
