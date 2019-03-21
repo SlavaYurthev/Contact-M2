@@ -12,12 +12,18 @@ use \Magento\Framework\App\ObjectManager;
 
 class Email extends \SY\Contact\Helper\Data {
 	const EMAIL_TYPE = 'email';
-	protected $_json;
+	protected $json;
+	protected $translation;
+	protected $transportBuilder;
 	public function __construct(
 		\Magento\Framework\App\Helper\Context $context,
-		\Magento\Framework\Serialize\Serializer\Json $json
+		\Magento\Framework\Serialize\Serializer\Json $json,
+		\Magento\Framework\Translate\Inline\StateInterface $translation,
+		\Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
 	){
 		$this->_json = $json;
+		$this->translate = $translation;
+		$this->transport = $transportBuilder;
 		parent::__construct($context);
 	}
 	public function recive(\SY\Contact\Model\Request $request, $storeId = 0){
@@ -44,13 +50,14 @@ class Email extends \SY\Contact\Helper\Data {
 		return $vars;
 	}
 	public function send($from, $to, $vars, $storeId = 0){
-		$translator = ObjectManager::getInstance()->get('Magento\Framework\Translate\Inline\StateInterface');
-		$transport = ObjectManager::getInstance()->get('Magento\Framework\Mail\Template\TransportBuilder');
+		$translator = $this->translate;
+		$transport = $this->transport;
 		try {
 			$translator->suspend();
 			$transport->setTemplateIdentifier(
 				$this->getConfig('general/email_template', $storeId)
 			);
+			echo $this->getConfig('general/email_template', $storeId);
 			$transport->setTemplateOptions([
 					'area' => \Magento\Framework\App\Area::AREA_FRONTEND, 
 					'store' => $storeId
