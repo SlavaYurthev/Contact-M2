@@ -36,6 +36,8 @@ class Post extends Action {
 			if(count($info)>0){
 				$model = $this->_objectManager->get('SY\Contact\Model\Request');
 				$model->setData('info', $json->serialize($info));
+				//used to support hidden fields
+                $model->setData('originalParams', $this->getRequest()->getParams());
 				try {
 					$model->save();
 					if($model->getId()){
