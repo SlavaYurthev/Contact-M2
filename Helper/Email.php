@@ -64,7 +64,7 @@ class Email extends \SY\Contact\Helper\Data {
 					'store' => $storeId
 				]);
 			$transport->addTo([$to]);
-			$transport->setFrom(['name'=>__('Customer'), 'email' => $from]);
+			$transport->setFrom(['name'=>__('Customer')->render(), 'email' => $from]);
 			$transport->setTemplateVars($vars);
 			$transport->getTransport()->sendMessage();
 			$translator->resume();
