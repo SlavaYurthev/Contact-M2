@@ -6,28 +6,55 @@
  */
 namespace SY\Contact\Helper;
 
-use \Magento\Store\Model\StoreManagerInterface;
+use Exception;
+use Magento\Framework\App\Area;
+use Magento\Framework\Mail\Template\TransportBuilder;
+use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Framework\Translate\Inline\StateInterface;
 use \Magento\Framework\App\Helper\Context;
-use \Magento\Framework\App\ObjectManager;
+use SY\Contact\Model\Request;
 
-class Email extends \SY\Contact\Helper\Data {
+class Email extends Data
+{
 	const EMAIL_TYPE = 'email';
 	protected $_json;
 
     /**
      * Used to access request from plugins
-     * @var \SY\Contact\Model\Request
+     * @var Request
      */
 	public $request;
 
-	public function __construct(
-		\Magento\Framework\App\Helper\Context $context,
-		\Magento\Framework\Serialize\Serializer\Json $json
+    /**
+     * @var TransportBuilder
+     */
+    private $transportBuilder;
+
+    /**
+     * @var StateInterface
+     */
+    private $inlineTranslate;
+
+    /**
+     * Email constructor.
+     *
+     * @param Context $context
+     * @param Json $json
+     * @param TransportBuilder $transportBuilder
+     * @param StateInterface $inlineTranslate
+     */
+    public function __construct(
+		Context $context,
+		Json $json,
+        TransportBuilder $transportBuilder,
+        StateInterface $inlineTranslate
 	){
 		$this->_json = $json;
-		parent::__construct($context);
-	}
-	public function recive(\SY\Contact\Model\Request $request, $storeId = 0){
+        $this->transportBuilder = $transportBuilder;
+        $this->inlineTranslate = $inlineTranslate;
+        parent::__construct($context);
+    }
+	public function recive(Request $request, $storeId = 0){
 	    $this->request = $request;
 		$to = $this->getConfig('general/send_to');
 		if((bool)$to !== false){
@@ -52,22 +79,22 @@ class Email extends \SY\Contact\Helper\Data {
 		return $vars;
 	}
 	public function send($from, $to, $vars, $storeId = 0){
-		$translator = ObjectManager::getInstance()->get('Magento\Framework\Translate\Inline\StateInterface');
-		$transport = ObjectManager::getInstance()->get('Magento\Framework\Mail\Template\TransportBuilder');
 		try {
-			$translator->suspend();
-			$transport->setTemplateIdentifier(
+			$this->inlineTranslate->suspend();
+			$this->transportBuilder->setTemplateIdentifier(
 				$this->getConfig('general/email_template', $storeId)
 			);
-			$transport->setTemplateOptions([
-					'area' => \Magento\Framework\App\Area::AREA_FRONTEND, 
+			$this->transportBuilder->setTemplateOptions([
+					'area' => Area::AREA_FRONTEND,
 					'store' => $storeId
 				]);
-			$transport->addTo([$to]);
-			$transport->setFrom(['name'=>__('Customer')->render(), 'email' => $from]);
-			$transport->setTemplateVars($vars);
-			$transport->getTransport()->sendMessage();
-			$translator->resume();
-		} catch (\Exception $e) {}
+			$this->transportBuilder->addTo($to);
+			$this->transportBuilder->setFromByScope(['name'=>__('Customer')->render(), 'email' => $from]);
+			$this->transportBuilder->setTemplateVars($vars);
+			$this->transportBuilder->getTransport()->sendMessage();
+			$this->inlineTranslate->resume();
+		} catch (Exception $e) {
+		    $this->_logger->critical($e->getMessage(), ['exception' => $e]);
+        }
 	}
 }
