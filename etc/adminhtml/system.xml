@@ -68,6 +68,11 @@
 					<label>Send To</label>
 					<comment>Manager Email to Recive New Requests</comment>
 				</field>
+				<field id="add_customer_in_cc" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send to customer in CC</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>The E-Mail Address from the customer will be set in CC.</comment>
+				</field>
 			</group>
 		</section>
 	</system>
