@@ -92,6 +92,11 @@ class Email extends Data
                     'store' => $storeId
                 ]);
             $this->transportBuilder->addTo($to);
+
+            if ($this->getConfig('general/add_customer_in_cc')) {
+                $this->transportBuilder->addCc($from);
+            }
+
             $this->transportBuilder->setFromByScope(['name'=>__('Customer')->render(), 'email' => $from]);
             $this->transportBuilder->setTemplateVars($vars);
             $this->transportBuilder->getTransport()->sendMessage();
