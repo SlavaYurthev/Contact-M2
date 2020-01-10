@@ -64,14 +64,17 @@
 					<label>Email Template</label>
 					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
 				</field>
-				<field id="send_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Send To</label>
-					<comment>Manager Email to Recive New Requests</comment>
+				<field id="send_from_name" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send From Name</label>
+					<comment>Name from where new requests are send to customer - If empty defaults to the Name configured in General > Store Email Addresses > Sales Representative </comment>
 				</field>
-				<field id="add_customer_in_cc" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Send to customer in CC</label>
-					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-					<comment>The E-Mail Address from the customer will be set in CC.</comment>
+				<field id="send_from" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send From</label>
+					<comment>Email from where new requests are send to customer - If empty defaults to the E-Mail configured in General > Store Email Addresses > Sales Representative </comment>
+				</field>
+				<field id="send_to" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send To</label>
+					<comment>Manager email to receive new requests as BCC - If empty defaults to the E-Mail configured in General > Store Email Addresses > Sales Representative </comment>
 				</field>
 			</group>
 		</section>

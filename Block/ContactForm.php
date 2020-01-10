@@ -29,7 +29,7 @@ class ContactForm extends \Magento\Contact\Block\ContactForm {
 			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 			$helper = $objectManager->get('SY\Contact\Helper\Data');
 			$json = $objectManager->get('Magento\Framework\Serialize\Serializer\Json');
-			$fields = $helper->getConfig(
+			$fields = $helper->getContactConfig(
 				'general/fields',
 				$this->_storeManager->getStore()->getId()
 			);
