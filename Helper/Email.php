@@ -57,17 +57,14 @@ class Email extends Data
     public function recive(Request $request, $storeId = 0)
     {
         $this->request = $request;
-        $shopMail = $this->getConfig('general/send_to');
-        if (isset($shopMail)) {
+        $to = $this->getConfig('general/send_to');
+        if ((bool)$to !== false) {
             $info = $this->request->getData('info');
             $info = $this->_json->unserialize($info);
             if (is_array($info) && count($info)>0) {
                 foreach ($info as $field) {
                     if (@$field['type'] == self::EMAIL_TYPE) {
-                        $customerMail = $field['value'];
-                        $to[] = $shopMail;
-                        $to[] = $customerMail;
-                        $this->send($customerMail, $to, $this->toVars($info), $storeId);
+                        $this->send($field['value'], $to, $this->toVars($info), $storeId);
                     }
                 }
             }
