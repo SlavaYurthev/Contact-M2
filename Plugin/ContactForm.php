@@ -17,7 +17,7 @@ class ContactForm {
 		$this->_helper = $helper;
 	}
 	public function beforeToHtml($subject){
-		if($this->_helper->getConfig(
+		if($this->_helper->getContactConfig(
 				'general/active', 
 				$this->_storeManagerInterface->getStore()->getId()
 			) == "1"){

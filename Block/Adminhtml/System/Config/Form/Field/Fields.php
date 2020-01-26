@@ -17,9 +17,12 @@ class Fields extends \Magento\Config\Block\System\Config\Form\Field\FieldArray\A
 			);
 		}
 		return $this->_typeRenderer
-			->addOption('text', 'text')
-			->addOption('textarea', 'textarea')
-			->addOption('email', 'email');
+			->addOption('text', 'Single Line Text')
+			->addOption('textarea', 'Multi Line Text')
+			->addOption('email', 'E-Mail')
+			->addOption('checkbox', 'Checkbox')
+			->addOption('checkbox_list', 'Checkbox List')
+			->addOption('select', 'Drop Down');
 	}
 	protected function _prepareToRender(){
 		$this->addColumn('key', [
@@ -36,6 +39,18 @@ class Fields extends \Magento\Config\Block\System\Config\Form\Field\FieldArray\A
 				'label' => __('Field Class'), 
 				'style'=>'min-width:100px'
 			]);
+		$this->addColumn('default_value', [
+				'label' => __('Default Value*'),
+				'style'=>'min-width:100px'
+			]);
+		$this->addColumn('options', [
+				'label' => __('Options'),
+				'style'=>'min-width:100px'
+			]);
+        $this->addColumn('show_if', [
+                'label' => __('Show If**'),
+                'style'=>'min-width:100px'
+            ]);
 		$this->addColumn('field_type', [
 				'label' => __('Type'), 
 				'style'=>'min-width:100px',
