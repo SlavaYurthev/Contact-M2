@@ -23,5 +23,10 @@
 				<fields>[{"key":"email","label":"E-Mail","field_class":"required validate-email","default_value":"","options":"","show_if":"","field_type":"email"},{"key":"message","label":"Message","field_class":"required","default_value":"","options":"","show_if":"","field_type":"textarea"}]</fields>
 			</general>
 		</sy_contact>
+		<recaptcha_frontend>
+			<type_for>
+				<sy_contact_form>0</sy_contact_form>
+			</type_for>
+		</recaptcha_frontend>
 	</default>
 </config>
