@@ -5,7 +5,8 @@
         "OSL-3.0"
     ],
     "require": {
-        "php": "^7.2|~8.1.0"
+        "php": "^7.2|~8.1.0",
+        "magento/module-re-captcha-ui": "*"
     },
     "type": "magento2-module",
     "version": "1.0.0",
