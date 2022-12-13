@@ -19,7 +19,6 @@ class Post extends Action {
     private $validator;
     private $_storemanagerinterface;
     private $email;
-    private $messageManager;
 
     /**
      * @var LoggerInterface
@@ -34,7 +33,6 @@ class Post extends Action {
         \Magento\Framework\Data\Form\FormKey\Validator $validator,
         \Magento\Store\Model\StoreManagerInterface $_storemanagerinterface,
         \SY\Contact\Helper\Email $email,
-        \Magento\Framework\Message\ManagerInterface $messageManager,
         LoggerInterface $logger
     ){
         parent::__construct($context);
@@ -45,7 +43,6 @@ class Post extends Action {
         $this->validator = $validator;
         $this->storeManager = $_storemanagerinterface;
         $this->email = $email;
-        $this->messageManager = $messageManager;
         $this->logger = $logger;
     }
 
@@ -53,7 +50,7 @@ class Post extends Action {
 		$validator = $this->validator;
 		if ($validator->validate($this->getRequest())) {
 			$store = $this->storeManager->getStore();
-			$fields = $this->helper->getConfig('general/fields', $store->getId());
+			$fields = $this->helper->getContactConfig('general/fields', $store->getId());
 			$fields = $this->json->unserialize($fields);
 			$info = [];
 			if(count($fields)>0){
@@ -79,7 +76,7 @@ class Post extends Action {
 					$model->save();
 					if($model->getId()){
 						$email = $this->email;
-						$email->recive($model, $store->getId());
+						$email->receive($model, $store->getId());
                         $this->messageManager->addSuccess(__('Thanks for contacting us with your comments and questions. We\'ll respond to you very soon.'));
 					}
                 } catch (\Exception $e) {

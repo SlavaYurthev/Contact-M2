@@ -103,20 +103,20 @@ class Email extends Data
      */
     public function send(string $to, array $vars, int $storeId = 0)
     {
-    $this->inlineTranslate->suspend();
-    $this->transportBuilder->setTemplateIdentifier(
-        $this->getContactConfig('general/email_template', $storeId)
-    );
-    $this->transportBuilder->setTemplateOptions([
-        'area' => Area::AREA_FRONTEND,
-        'store' => $storeId,
-    ]);
-    $this->transportBuilder->addTo($to);
-    $this->transportBuilder->addBcc($this->getRecipientAddress());
-    $this->transportBuilder->setFromByScope($this->getFrom());
-    $this->transportBuilder->setTemplateVars($vars);
-    $this->transportBuilder->getTransport()->sendMessage();
-    $this->inlineTranslate->resume();
+        $this->inlineTranslate->suspend();
+        $this->transportBuilder->setTemplateIdentifier(
+            $this->getContactConfig('general/email_template', $storeId)
+        );
+        $this->transportBuilder->setTemplateOptions([
+            'area' => Area::AREA_FRONTEND,
+            'store' => $storeId,
+        ]);
+        $this->transportBuilder->addTo($to);
+        $this->transportBuilder->addBcc($this->getRecipientAddress());
+        $this->transportBuilder->setFromByScope($this->getFrom());
+        $this->transportBuilder->setTemplateVars($vars);
+        $this->transportBuilder->getTransport()->sendMessage();
+        $this->inlineTranslate->resume();
     }
 
     /**

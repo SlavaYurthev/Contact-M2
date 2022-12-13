@@ -38,11 +38,11 @@ class ContactForm extends \Magento\Contact\Block\ContactForm {
 
     public function getFields(){
 		if(!$this->_fields){
-			$fields = $this->helper->getConfig(
+			$fields = $this->helper->getContactConfig(
 				'general/fields',
 				$this->_storeManager->getStore()->getId()
 			);
-			$fields = this->json->unserialize($fields);
+			$fields = $this->json->unserialize($fields);
 			if(count($fields)>0){
 				foreach ($fields as $key => $field) {
 					$object = new \Magento\Framework\DataObject;
