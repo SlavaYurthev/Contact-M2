@@ -12,28 +12,37 @@ class ContactForm extends \Magento\Contact\Block\ContactForm {
     /** @var \Magento\Customer\Model\Session */
     protected $_customerSession;
 
+	private $helper;
+
+	private $json;
+
+	protected $formKey;
+
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Email\Model\Template\FilterFactory $templateFilter,
         \Magento\Customer\Model\Session $_customerSession,
+		\SY\Contact\Helper\Data $helper,
+		\Magento\Framework\Serialize\Serializer\Json $json,
+		\Magento\Framework\Data\Form\FormKey $formKey,
         array $data = []
         )
     {
         parent::__construct($context, $data);
         $this->templateFilter = $templateFilter;
         $this->_customerSession = $_customerSession;
+		$this->helper = $helper;
+		$this->json = $json;
+		$this->formKey = $formKey;
     }
 
     public function getFields(){
 		if(!$this->_fields){
-			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-			$helper = $objectManager->get('SY\Contact\Helper\Data');
-			$json = $objectManager->get('Magento\Framework\Serialize\Serializer\Json');
-			$fields = $helper->getContactConfig(
+			$fields = $this->helper->getContactConfig(
 				'general/fields',
 				$this->_storeManager->getStore()->getId()
 			);
-			$fields = $json->unserialize($fields);
+			$fields = $this->json->unserialize($fields);
 			if(count($fields)>0){
 				foreach ($fields as $key => $field) {
 					$object = new \Magento\Framework\DataObject;
@@ -47,9 +56,7 @@ class ContactForm extends \Magento\Contact\Block\ContactForm {
 		return $this->_fields;
 	}
 	public function getFormKey(){
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-		$formKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
-		return $formKey->getFormKey();
+		return $this->formKey->getFormKey();
 	}
 
 	protected function collectVariables() {

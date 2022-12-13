@@ -19,16 +19,23 @@ define([
                 if (config[name] && config[name]['show_if'] != '') {
                     var condition = config[name]['show_if'];
 
-                    // currently we support only literal field names as condition which means "if non-empty"
-                    // in the future this might be backwards compatibly extended with expressions like
-                    // fieldsname=="value" and so on
+                    // We support literal field names as condition which means "if non-empty"
+                    // Extended with backwards compatibly extended with expressions like
+                    // fieldsname:"value" and so on
+					
+					var conditionarr = condition.match(/[^:]*/g);
 
-                    var dependencyField = $form.find('[name="' + condition + '"]');
+                    var dependencyField = $form.find('[name="' + conditionarr[0] + '"]');
 
                     if (dependencyField.attr('type') == 'checkbox') {
                         var conditionSatisfied = dependencyField.is(':checked');
                     } else {
-                        var conditionSatisfied = dependencyField.val() != '';
+						if (conditionarr[2]!='') {
+                       		var conditionSatisfied = dependencyField.val() == conditionarr[2];
+						}
+						else {
+							var conditionSatisfied = dependencyField.val() != '';
+						}
                     }
 
                     if (conditionSatisfied) {
