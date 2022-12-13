@@ -8,7 +8,6 @@
         "php": "^7.2|~8.1.0"
     },
     "type": "magento2-module",
-    "version": "1.0.0",
     "authors": [
         {
             "name": "Slava Yurthev",

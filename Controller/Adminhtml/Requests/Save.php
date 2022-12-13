@@ -13,18 +13,25 @@ use \Magento\Framework\View\Result\PageFactory;
 class Save extends Action {
 	protected $_resultPageFactory;
 	protected $_resultPage;
+	protected $request;
+	protected $session;
+	
 	public function __construct(
-			Context $context, 
-			PageFactory $resultPageFactory
+			\Magento\Backend\App\Action\Context $context, 
+			\Magento\Framework\View\Result\PageFactory $resultPageFactory,
+			\SY\Contact\Model\Request $request,
+			\Magento\Backend\Model\Session $session
 		){
 		parent::__construct($context);
 		$this->_resultPageFactory = $resultPageFactory;
+		$this->request = $request;
+		$this->session = $session;
 	}
 	public function execute(){
 		$data = $this->getRequest()->getPostValue();
 		$resultRedirect = $this->resultRedirectFactory->create();
 		$id = $this->getRequest()->getParam('id');
-		$model = $this->_objectManager->create('SY\Contact\Model\Request');
+		$model = $this->request;
 		if($id) {
 			$model->load($id);
 		}
@@ -35,7 +42,7 @@ class Save extends Action {
 			if ($this->getRequest()->getParam('back')) {
 				return $resultRedirect->setPath('*/*/edit', ['id' => $model->getId(), '_current' => true]);
 			}
-			$this->_objectManager->get('Magento\Backend\Model\Session')->setFormData(false);
+			$this->session->setFormData(false);
 			return $resultRedirect->setPath('*/*/');
 		} catch (\Exception $e) {
 			$this->messageManager->addException($e, __('Something went wrong.'));
