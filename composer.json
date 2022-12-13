@@ -1,5 +1,5 @@
 {
-    "name": "sy/contact",
+    "name": "imi/m2-contact",
     "description": "N/A",
     "license": [
         "OSL-3.0"
@@ -13,6 +13,12 @@
             "name": "Slava Yurthev",
             "email": "slavik-iii@ukr.net",
             "homepage": "https://github.com/SlavaYurthev/",
+            "role": "Developer"
+        },
+        {
+            "name": "iMi digital GmbH",
+            "email": "digital@imi.de",
+            "homepage": "https://imi-digital.de/",
             "role": "Developer"
         }
     ],
