@@ -1,5 +1,11 @@
 # Contact-M2
 
-Extended Contact Form Extension for Magento 2.x
+Magento 2 contact form with support for custom fields.
 
 Based on (https://github.com/SlavaYurthev/Contact-M2/)
+
+## Installation
+
+`composer require imi/contact-m2`
+
+
