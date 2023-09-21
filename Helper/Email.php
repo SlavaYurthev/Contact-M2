@@ -83,13 +83,17 @@ class Email extends Data
      */
     public function toVars(array $array)
     {
+        $allFieldsHtml = '';
         $vars = [];
         if (is_array($array) && count($array) > 0) {
             foreach ($array as $field) {
-                $vars[$field['key']] = $field['value'];
+                $value = is_array($field['value']) ? implode(', ', $field['value']) : (string) $field['value'];
+                $vars[$field['key']] = $value;
+                $allFieldsHtml .= sprintf('<strong>%s:</strong> %s<br>', htmlspecialchars($field['label']), htmlspecialchars($value));
             }
         }
 
+        $vars['_all_fields_html'] = $allFieldsHtml;
         return $vars;
     }
 
