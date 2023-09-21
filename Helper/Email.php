@@ -112,8 +112,8 @@ class Email extends Data
             'store' => $storeId,
         ]);
         $this->transportBuilder->addTo($to);
-        $this->transportBuilder->addBcc($this->getRecipientAddress());
-        $this->transportBuilder->setFromByScope($this->getFrom());
+        $this->transportBuilder->addBcc($this->getRecipientAddress($storeId));
+        $this->transportBuilder->setFromByScope($this->getFrom($storeId));
         $this->transportBuilder->setTemplateVars($vars);
         $this->transportBuilder->getTransport()->sendMessage();
         $this->inlineTranslate->resume();
@@ -122,35 +122,35 @@ class Email extends Data
     /**
      * @return mixed
      */
-    private function getRecipientAddress()
+    private function getRecipientAddress(int $storeId = 0)
     {
-        return $this->getContactConfig('general/send_to') ?? $this->getConfig('trans_email/ident_sales/email');
+        return $this->getContactConfig('general/send_to', $storeId) ?? $this->getConfig('trans_email/ident_sales/email', $storeId);
     }
 
     /**
      * @return array
      */
-    private function getFrom()
+    private function getFrom(int $storeId = 0)
     {
         return [
-            'name' => $this->getFromName(),
-            'email' => $this->getFromAddress(),
+            'name' => $this->getFromName($storeId),
+            'email' => $this->getFromAddress($storeId),
         ];
     }
 
     /**
      * @return mixed
      */
-    private function getFromAddress()
+    private function getFromAddress(int $storeId = 0)
     {
-        return $this->getContactConfig('general/send_from') ?? $this->getConfig('trans_email/ident_sales/email');
+        return $this->getContactConfig('general/send_from', $storeId) ?? $this->getConfig('trans_email/ident_sales/email', $storeId);
     }
 
     /**
      * @return mixed
      */
-    private function getFromName()
+    private function getFromName(int $storeId = 0)
     {
-       return  $this->getContactConfig('general/send_from_name') ?? $this->getConfig('trans_email/ident_sales/name');
+       return  $this->getContactConfig('general/send_from_name', $storeId) ?? $this->getConfig('trans_email/ident_sales/name', $storeId);
     }
 }
